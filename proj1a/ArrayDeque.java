@@ -49,9 +49,11 @@ public class ArrayDeque<T> {
 
     public T removeFirst(){
         size -= 1;
+        T back = this.array[0];
         T[] helper = (T[]) new Object[array.length];
         System.arraycopy(this.array, 1, helper, 0, size);
         array = helper;
+        return back;
     }
 
     public T removeLast(){
