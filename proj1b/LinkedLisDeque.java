@@ -1,4 +1,4 @@
-public class LinkedLisDeque<T> {
+public class LinkedLisDeque<T> implements Deque<T> {
     public int size = 0;
     public node<T> sentinel = new node<>();
 
@@ -8,6 +8,7 @@ public class LinkedLisDeque<T> {
         sentinel.content = null;
     }
 
+    @Override
     public void addFirst(T item){
         node <T> First = new node<> (this.sentinel, item, null);
         node <T> helper = this.sentinel.after;
@@ -17,6 +18,7 @@ public class LinkedLisDeque<T> {
         size += 1;
     }
 
+    @Override
     public void addLast(T item){
         node <T> Last= new node<> (null, item, this.sentinel);
         node <T> helper = this.sentinel.before;
@@ -26,14 +28,19 @@ public class LinkedLisDeque<T> {
         size += 1;
     }
 
+    /* implement isEmpty in subclass Deque
+    @Override
     public boolean isEmpty(){
         return this.sentinel.after == sentinel;
     }
+     **/
 
+    @Override
     public int size() {
         return this.size;
     }
 
+    @Override
     public void printDeque(){
         node<T> index = this.sentinel.after;
         while (index.after != this.sentinel){
@@ -44,6 +51,7 @@ public class LinkedLisDeque<T> {
 
     }
 
+    @Override
     public T removeFirst(){
         T willlost = this.sentinel.after.content;
         if (this.size != 0) {
@@ -54,6 +62,7 @@ public class LinkedLisDeque<T> {
         return willlost;
     }
 
+    @Override
     public T removeLast(){
         T willlost = this.sentinel.before.content;
         if (this.size != 0) {
@@ -64,6 +73,7 @@ public class LinkedLisDeque<T> {
         return willlost;
     }
 
+    @Override
     public T get(int index){
         int i = 0;
         node<T> pointer = this.sentinel.after;
