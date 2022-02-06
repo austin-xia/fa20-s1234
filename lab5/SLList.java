@@ -72,6 +72,11 @@ public class SLList<Item> {
 		return size;
 	}
 
+	public void clear(){
+		this.sentinel.next = null;
+		this.size = 0;
+	}
+
 	public static void main(String[] args) {
 		/* Creates a list of one integer, namely 10 */
 		SLList L = new SLList();

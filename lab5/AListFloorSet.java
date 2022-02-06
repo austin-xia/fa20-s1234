@@ -8,11 +8,24 @@ public class AListFloorSet implements Lab5FloorSet {
         items = new AList<>();
     }
 
+    @Override
     public void add(double x) {
-        return;
+        for (int i = 0; i < items.size(); i += 1){
+            if (x == items.get(i)){
+                return;
+            }
+        }
+        items.addLast(x);
     }
 
+    @Override
     public double floor(double x) {
-        return 0;
+        double returned = Double.NEGATIVE_INFINITY;
+        for (int i = 0; i < items.size(); i += 1){
+            if (items.get(i) <= x && items.get(i) > returned){
+                returned = items.get(i);
+            }
+        }
+        return returned;
     }
 }
