@@ -12,6 +12,7 @@ public class Percolation {
     //store the first opened first-row-element
     //and connect other opened first-row-element with this master_top
     private int master_top;
+    private int master_bottom;
 
     /* convert the row/col to the number count direct for array, row/col starts from 0/0
     eg, 0/0 should be converted to 0
@@ -40,6 +41,7 @@ public class Percolation {
         length = N;
         DS_helper = new WeightedQuickUnionUF(length*length);
         master_top = -1;
+        master_bottom = -1;
 
 
         /* cannot use the concept below (virtual top/bottom)
@@ -59,12 +61,27 @@ public class Percolation {
         int num = twoD_oneD(row, col);
         root [num] = 1;
         open_sites += 1;
+
+        /* make the first opened top row site as the master_top,
+        then connect all other opened first row sites to it.
+         */
         if (row == 0){
             if (master_top == -1){
                 master_top = num;
             }
             DS_helper.union(master_top, num);
         }
+
+        /* make the first opened bottom row site as the master_bottom,
+        then connect all other opened bottom row sites to it.
+         */
+        if (row == length -1){
+            if (master_bottom == -1){
+                master_bottom = num;
+            }
+            DS_helper.union(master_bottom, num);
+        }
+
         if (row > 0 && isOpen(row-1, col)){
             DS_helper.union(num, twoD_oneD(row-1, col));
         }
@@ -101,7 +118,10 @@ public class Percolation {
 
     /* does the system percolate? */
     public boolean percolates(){
-        return DS_helper.connected(0, 11);
+        if (master_top == -1 || master_bottom == -1){
+            return false;
+        }
+        return DS_helper.connected(master_top, master_bottom);
     }
 
 
