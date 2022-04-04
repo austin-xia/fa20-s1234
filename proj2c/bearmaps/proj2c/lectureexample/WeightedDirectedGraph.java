@@ -39,7 +39,7 @@ public class WeightedDirectedGraph implements AStarGraph<Integer> {
     @Override
     public double estimatedDistanceToGoal(Integer s, Integer goal) {
         List<WeightedEdge<Integer>> edges = neighbors(s);
-        double estimate = Double.POSITIVE_INFINITY;
+        double estimate = 0;
         for (WeightedEdge<Integer> e : edges) {
             if (e.weight() < estimate) {
                 estimate = e.weight();
